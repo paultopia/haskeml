@@ -10,4 +10,28 @@ I think I might be getting bitten by some kind of floating point problem?
 
 Also, noticing the numbers are wrong, I realize the numbers I was relying on were column-wise not row-wise, so let's fix that, eh?  In next commit.
 
+--- 
 
+After fixing the dimensions and radically cranking down the learning rate and the threshold, I can make some progress: 
+
+Olsgradient> trainOLS testFeatures testLabels 0.000000001 0.000001 100000
+[3.451887498398911e150,3.2124696683713294e151,1.4698249124294339e153]
+
+which is still way wrong, but at least in the ballpark?
+
+But still fluctuating widely: 
+
+Olsgradient> trainOLS testFeatures testLabels 0.000000001 0.000001 170000
+[5.901057974271367e257,5.49176928924837e258,2.512689658714969e260]
+
+Olsgradient> trainOLS testFeatures testLabels 0.00000000001 1 500000
+[104617.7409380684,973607.775151017,4.4546149295402564e7]
+
+w.t.f.  
+
+Since it fluctuates so widely, even with tiny learning rates, my best guesses are that: 
+
+1.  the Infinity results are where the fluctuations are so big that they overflow the limit for a Double, and 
+2.  and this is because somehow my calculation of the gradient step is wrong
+3.  Or maybe I should be using ratios?
+4.  I need to learn how people actually do serious math without integers and floats blowing everything the hell up.
