@@ -41,3 +41,23 @@ Fix plan: review gradient descent algorithm, preferably not alone, make sure I'm
 (currently writing a reference implementation in python; if that blows up similarly, I'll know that the math is probably wrong, since the code ought to be easier to manage with the power to drop down to imperative land prn.)
 
 ALSO: part of the problem might be that I need to scale the features before actually doing gradient descent.  See http://sebastianraschka.com/Articles/2014_about_feature_scaling.html 
+
+----
+
+Ok, now I have a python reference implementation, which works.  And I've got values that are known to work in python: 
+
+- learnRate = 0.001
+
+- threshold = 0.01
+
+- maxiterations = 100000
+
+I've also scaled the features, and verified that my haskell scaling implementation matches what scikit-learn does to scale.
+
+Unfortunately:
+
+Olsgradient> trainOLS testFeatures testLabels 0.001 0.01 100000
+[NaN,NaN,NaN]
+
+so something else is still amiss... 
+
