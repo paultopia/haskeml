@@ -4,13 +4,10 @@ import Data.List
 
 default (Double)
 
--- each row of observations matrix is an observation.
-
 addIntercept :: [[Double]] -> [[Double]]
 addIntercept = map (\x -> 1.0:x)
 
 predict :: [[Double]] -> [Double] -> [Double]
--- assumes intercept is already in.  as first element.
 predict observations weights =
   let mult = map (\x -> zipWith (*) x weights) observations
   in map sum mult
@@ -21,10 +18,9 @@ subtractMaker learnRate costs featureList =
   in learnRate * sum costFeatureMult
 
 gradientStep :: Double -> [Double] -> [Double] -> [[Double]] -> [Double]
--- also assumes intercept is already in. going to do at very beginning of process.
 gradientStep learnRate labels weights observations =
   let preds = predict observations weights
-      costs = zipWith (-) labels preds
+      costs = zipWith (-) preds labels
       featureMatrix = transpose observations
       subtractors = map (subtractMaker learnRate costs) featureMatrix
   in zipWith (-) weights subtractors
@@ -38,7 +34,6 @@ innerTrainOLS observations labels weights learnRate threshold maxIter numIter
     preds = predict observations weights
     sse = sum $ map (**2.0) (zipWith (-) labels preds)
     newWeights = gradientStep learnRate labels weights observations
--- if numIter is too high or cost is lower then kill it
 
 trainOLS :: [[Double]] -> [Double] -> Double -> Double -> Double -> [Double]
 trainOLS observations labels learnRate threshold maxIter =
