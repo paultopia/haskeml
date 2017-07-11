@@ -37,3 +37,7 @@ Since it fluctuates so widely, even with tiny learning rates, my best guesses ar
 4.  I need to learn how people actually do serious math without integers and floats blowing everything the hell up.
 
 Fix plan: review gradient descent algorithm, preferably not alone, make sure I'm not just being dumb on the math.  Then dig through from inside out with hspec and get some known correct results (by hand calculation) + tests.
+
+(currently writing a reference implementation in python; if that blows up similarly, I'll know that the math is probably wrong, since the code ought to be easier to manage with the power to drop down to imperative land prn.)
+
+ALSO: part of the problem might be that I need to scale the features before actually doing gradient descent.  See http://sebastianraschka.com/Articles/2014_about_feature_scaling.html 
