@@ -35,3 +35,5 @@ Since it fluctuates so widely, even with tiny learning rates, my best guesses ar
 2.  and this is because somehow my calculation of the gradient step is wrong
 3.  Or maybe I should be using ratios?
 4.  I need to learn how people actually do serious math without integers and floats blowing everything the hell up.
+
+Fix plan: review gradient descent algorithm, preferably not alone, make sure I'm not just being dumb on the math.  Then dig through from inside out with hspec and get some known correct results (by hand calculation) + tests.
