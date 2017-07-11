@@ -16,7 +16,7 @@ predict observations weights =
   in map sum mult
 
 subtractMaker :: Double ->  [Double] -> [Double] -> Double
-subtractMaker learnRate featureList costs =
+subtractMaker learnRate costs featureList =
   let costFeatureMult = zipWith (*) costs featureList
   in learnRate * sum costFeatureMult
 
