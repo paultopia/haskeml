@@ -47,7 +47,22 @@ trainOLS observations labels learnRate threshold maxIter =
       initweights = replicate numFeats 1
   in innerTrainOLS obvs labels initweights learnRate threshold maxIter 0
 
--- pray for me, I'm about to test this.
+mean :: [Double] -> Double
+mean lst = sum lst / fromIntegral (length lst)
+
+standardDeviation :: [Double] -> Double
+standardDeviation lst =
+  let m = mean lst
+      n = length lst
+      squaredErrors = map (\x -> (x - m) ** 2.0) lst
+  in sqrt (sum squaredErrors / fromIntegral n)
+
+scale :: [Double] -> [Double]
+scale lst =
+  let m = mean lst
+      stdev = standardDeviation lst
+  in map (\x -> (x - m) / stdev) lst
+
 
 testFeatures = transpose [[2, 8, 11, 10, 8, 4, 2, 2, 9, 8, 4, 11, 12, 2, 4, 4, 20, 1, 10, 15, 15, 16, 17, 6, 5]
                          , [50, 110, 120, 550, 295, 200, 375, 52, 100, 300, 412, 400, 500, 360, 205, 400, 600, 585, 540, 250, 290, 510, 590, 100, 400]]
